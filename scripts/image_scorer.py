@@ -20,13 +20,13 @@ from launch import is_installed, run_pip
 from modules.generation_parameters_copypaste import parse_generation_parameters
 
 extension_name = "Aesthetic Image Scorer"
+tag_files = None
 if platform.system() == "Windows" and not is_installed("pywin32"):
     run_pip(f"install pywin32", "pywin32")
-try:
-    from tools.add_tags import tag_files
-except:
-    logging.exception(f"{extension_name}: Unable to load Windows tagging script from tools directory")
-    tag_files = None
+    try:
+        from tools.add_tags import tag_files
+    except:
+        logging.exception(f"{extension_name}: Unable to load Windows tagging script from tools directory")
 
 state_name = "sac+logos+ava1-l14-linearMSE.pth"
 if not Path(state_name).exists():
